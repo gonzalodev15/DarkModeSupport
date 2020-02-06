@@ -25,7 +25,7 @@ class LandmarkCell: UITableViewCell{
 class LandmarkTableViewController: UITableViewController {
 
     var landmarks: [Landmark] = landmarkData
-    var selectedLandmark : Int = 0
+    var currentLandmark : Int = 0
 
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -56,6 +56,20 @@ class LandmarkTableViewController: UITableViewController {
         // Configure the cell...
         cell.updateViews(from: landmarks[indexPath.row])
         return cell
+    }
+    
+    override func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
+        currentLandmark = indexPath.row
+        let cell = tableView.cellForRow(at: indexPath)
+        self.performSegue(withIdentifier: "showLandmarkDetail", sender: cell)
+    }
+    
+    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
+        if segue.identifier == "showLandmarkDetail" {
+            let detailController = segue.destination  as! DetailViewController
+            detailController.selectedLandmark = landmarks[currentLandmark]
+        }
+        return
     }
     
    /* override func tableView(_ tableView: UITableView, titleForHeaderInSection section: Int) -> String? {

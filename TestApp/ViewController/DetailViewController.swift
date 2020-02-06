@@ -9,11 +9,23 @@
 import UIKit
 
 class DetailViewController: UIViewController {
-
+    var selectedLandmark : Landmark? 
+    
+    @IBOutlet weak var landmarkUIImageView: UIImageView!
+    @IBOutlet weak var nameLabel: UILabel!
+    @IBOutlet weak var parkLabel: UILabel!
+    @IBOutlet weak var stateLabel: UILabel!
+    @IBOutlet weak var categoryLabel: UILabel!
+    
+    
     override func viewDidLoad() {
         super.viewDidLoad()
 
-        // Do any additional setup after loading the view.
+        landmarkUIImageView.image = selectedLandmark?.image
+        nameLabel.text = selectedLandmark?.name
+        parkLabel.text = selectedLandmark?.park
+        stateLabel.text = selectedLandmark?.city
+        categoryLabel.text = (selectedLandmark?.category).map { $0.rawValue }
     }
     
 
